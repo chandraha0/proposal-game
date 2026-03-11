@@ -257,7 +257,7 @@ score += 10;
 
 }
 
-if(score >= 50){
+if(score >= 170){
 gameFinished = true;
 obstacles = [];
 scene = 1;
