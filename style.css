@@ -2,22 +2,17 @@ body{
 text-align:center;
 font-family:Arial;
 background:#ffe4ec;
+touch-action:none;
 }
 
 canvas{
 background:white;
 border:3px solid black;
 margin-top:20px;
- 
+
 max-width:95vw;
 height:auto;
 }
-
-#proposal{
-display:none;
-margin-top:30px;
-}
-
 
 button{
 font-size:22px;
