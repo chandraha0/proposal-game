@@ -68,6 +68,25 @@ audioUnlocked = true;
 }
 
 
+// ===== START GAME MUSIC =====
+
+function startGameMusic(){
+
+if(!gameMusicStarted){
+
+gameMusic.currentTime = 0;
+
+gameMusic.play().then(()=>{
+gameMusicStarted = true;
+}).catch(err=>{
+console.log("Music blocked:",err);
+});
+
+}
+
+}
+
+
 // ===== GROUND =====
 
 let groundY = 260;
@@ -124,9 +143,8 @@ document.addEventListener("keydown", function(e){
 
 unlockAudio();
 
-if(!gameFinished && !gameMusicStarted){
-gameMusic.play();
-gameMusicStarted = true;
+if(!gameFinished){
+startGameMusic();
 }
 
 if(e.code === "Space" && dino.y >= groundY - dino.height && !gameFinished){
@@ -142,9 +160,8 @@ canvas.addEventListener("touchstart", function(e){
 
 unlockAudio();
 
-if(!gameFinished && !gameMusicStarted){
-gameMusic.play();
-gameMusicStarted = true;
+if(!gameFinished){
+startGameMusic();
 }
 
 e.preventDefault();
@@ -186,7 +203,7 @@ proposalMusic.currentTime = 0;
 loveMusic.pause();
 loveMusic.currentTime = 0;
 
-/* gameMusic tidak dihentikan */
+/* gameMusic tetap jalan */
 
 }
 
