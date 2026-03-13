@@ -34,6 +34,38 @@ proposalMusic.loop = true;
 let loveMusic = new Audio("assets/love_music.mp3");
 loveMusic.loop = true;
 
+proposalMusic.volume = 0.6;
+loveMusic.volume = 0.7;
+
+let audioUnlocked = false;
+
+
+// ===== AUDIO UNLOCK (IMPORTANT FOR BROWSER) =====
+
+function unlockAudio(){
+
+if(!audioUnlocked){
+
+proposalMusic.play()
+.then(()=>{
+proposalMusic.pause();
+proposalMusic.currentTime = 0;
+})
+.catch(()=>{});
+
+loveMusic.play()
+.then(()=>{
+loveMusic.pause();
+loveMusic.currentTime = 0;
+})
+.catch(()=>{});
+
+audioUnlocked = true;
+
+}
+
+}
+
 
 // ===== GROUND =====
 
@@ -89,6 +121,8 @@ let resultText = document.getElementById("resultText");
 
 document.addEventListener("keydown", function(e){
 
+unlockAudio();
+
 if(e.code === "Space" && dino.y >= groundY - dino.height && !gameFinished){
 dino.vy = dino.jump;
 }
@@ -99,6 +133,8 @@ dino.vy = dino.jump;
 // ===== INPUT MOBILE =====
 
 canvas.addEventListener("touchstart", function(e){
+
+unlockAudio();
 
 e.preventDefault();
 
@@ -134,7 +170,10 @@ proposalUI.style.display = "none";
 resultText.innerHTML = "";
 
 proposalMusic.pause();
+proposalMusic.currentTime = 0;
+
 loveMusic.pause();
+loveMusic.currentTime = 0;
 
 }
 
@@ -278,6 +317,7 @@ obstacles = [];
 scene = 1;
 
 proposalMusic.play();
+
 }
 
 }
