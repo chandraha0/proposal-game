@@ -28,37 +28,42 @@ proposalDinoImg.src = "assets/proposal_dino.png";
 
 // ===== MUSIC =====
 
+let gameMusic = new Audio("assets/game_music.mp3");
+gameMusic.loop = true;
+
 let proposalMusic = new Audio("assets/proposal_music.mp3");
 proposalMusic.loop = true;
 
 let loveMusic = new Audio("assets/love_music.mp3");
 loveMusic.loop = true;
 
+gameMusic.volume = 0.4;
 proposalMusic.volume = 0.6;
 loveMusic.volume = 0.7;
 
 let audioUnlocked = false;
 
 
-// ===== AUDIO UNLOCK (IMPORTANT FOR BROWSER) =====
+// ===== AUDIO UNLOCK =====
 
 function unlockAudio(){
 
 if(!audioUnlocked){
 
-proposalMusic.play()
-.then(()=>{
+gameMusic.play().then(()=>{
+gameMusic.pause();
+gameMusic.currentTime = 0;
+}).catch(()=>{});
+
+proposalMusic.play().then(()=>{
 proposalMusic.pause();
 proposalMusic.currentTime = 0;
-})
-.catch(()=>{});
+}).catch(()=>{});
 
-loveMusic.play()
-.then(()=>{
+loveMusic.play().then(()=>{
 loveMusic.pause();
 loveMusic.currentTime = 0;
-})
-.catch(()=>{});
+}).catch(()=>{});
 
 audioUnlocked = true;
 
@@ -123,6 +128,10 @@ document.addEventListener("keydown", function(e){
 
 unlockAudio();
 
+if(!gameFinished && gameMusic.paused){
+gameMusic.play();
+}
+
 if(e.code === "Space" && dino.y >= groundY - dino.height && !gameFinished){
 dino.vy = dino.jump;
 }
@@ -135,6 +144,10 @@ dino.vy = dino.jump;
 canvas.addEventListener("touchstart", function(e){
 
 unlockAudio();
+
+if(!gameFinished && gameMusic.paused){
+gameMusic.play();
+}
 
 e.preventDefault();
 
@@ -168,6 +181,9 @@ noOffset = 0;
 
 proposalUI.style.display = "none";
 resultText.innerHTML = "";
+
+gameMusic.pause();
+gameMusic.currentTime = 0;
 
 proposalMusic.pause();
 proposalMusic.currentTime = 0;
@@ -312,9 +328,13 @@ score += 10;
 // ===== START CUTSCENE =====
 
 if(score >= 170){
+
 gameFinished = true;
 obstacles = [];
 scene = 1;
+
+gameMusic.pause();
+gameMusic.currentTime = 0;
 
 proposalMusic.play();
 
