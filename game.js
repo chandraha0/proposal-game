@@ -26,6 +26,15 @@ let proposalDinoImg = new Image();
 proposalDinoImg.src = "assets/proposal_dino.png";
 
 
+// ===== MUSIC =====
+
+let proposalMusic = new Audio("assets/proposal_music.mp3");
+proposalMusic.loop = true;
+
+let loveMusic = new Audio("assets/love_music.mp3");
+loveMusic.loop = true;
+
+
 // ===== GROUND =====
 
 let groundY = 260;
@@ -123,6 +132,9 @@ noOffset = 0;
 
 proposalUI.style.display = "none";
 resultText.innerHTML = "";
+
+proposalMusic.pause();
+loveMusic.pause();
 
 }
 
@@ -257,10 +269,15 @@ score += 10;
 
 }
 
+
+// ===== START CUTSCENE =====
+
 if(score >= 170){
 gameFinished = true;
 obstacles = [];
 scene = 1;
+
+proposalMusic.play();
 }
 
 }
@@ -416,6 +433,9 @@ yesBtn.style.position = "relative";
 yesBtn.style.top = yesOffset + "px";
 
 }else{
+
+proposalMusic.pause();
+loveMusic.play();
 
 resultText.innerHTML = "I love you forever ❤️";
 
